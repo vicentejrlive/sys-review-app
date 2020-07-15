@@ -1,6 +1,6 @@
 # sys-review-app
 
-Web application to suport studants in their Systematic Review/Mapping conduction.
+Web application to suport students in their Systematic Review/Mapping conduction.
 
 # DataBase
 
