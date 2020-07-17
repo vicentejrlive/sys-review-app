@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Review = use('App/Models/Review')
+const Database = use('Database')
 
 /**
  * Resourceful controller for interacting with reviews
@@ -21,8 +22,30 @@ class ReviewController {
    */
   async index({ request, response, view }) {
     const reviews = await Review.all();
-
     return reviews;
+  }
+
+  /**
+   * Show a filtred list of reviews.
+   * POST reviews
+   *
+   * @param {Request} ctx.request
+   */
+  async search({ request }) {
+    const config = request.only(['filter', 'page', 'limit'])
+    if (config.filter) {
+      const reviews = await Database
+        .from('reviews')
+        .where('title', 'ILIKE', '%' + config.filter + '%')
+        .orWhere('description', 'ILIKE', '%' + config.filter + '%')
+        .paginate(config.page, config.limit)
+      return reviews
+    } else {
+      const reviews = await Review
+        .query()
+        .paginate(config.page, config.limit)
+      return reviews
+    }
   }
 
   /**
@@ -35,7 +58,7 @@ class ReviewController {
    * @param {View} ctx.view
    */
   async create({ request, response, view }) {
-    
+
   }
 
   /**

@@ -8,7 +8,9 @@
         <b-col class="home-main-text" md="6" sm="12">
           <h1 class="mt-5 pt-5">The best Open Source Application for Systematic Review</h1>
           <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam felis augue, aliquet non sagittis vitae, pulvinar a nunc. Sed ac mi sem. Proin at libero rhoncus, bibendum mi sed, cursus nibh. Phasellus ultricies convallis sem, at mattis ligula. Suspendisse potenti. Aenean convallis arcu sit amet mauris semper volutpat.</p>
-          <b-button size="md" class="my-2 my-sm-0" variant="primary">Create your account</b-button>
+          <router-link to="/reviews" >
+            <b-button size="md" class="my-2 my-sm-0" variant="primary">Create your account</b-button>
+          </router-link>
         </b-col>
         <b-col class="home-main-img" md="6" sm="12">
           <img src="@/assets/svg/analysis.svg" alt="">

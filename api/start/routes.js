@@ -1,5 +1,7 @@
 'use strict'
 
+const ReviewController = require('../app/Controllers/Http/ReviewController');
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -17,3 +19,9 @@
 const Route = use('Route')
 
 Route.resource('reviews', 'ReviewController').apiOnly();
+Route.post('reviews/search', 'ReviewController.search')
+
+Route.resource('selections', 'SelectionController').apiOnly();
+Route.get('selections/review/:id', 'SelectionController.showByReview')
+
+

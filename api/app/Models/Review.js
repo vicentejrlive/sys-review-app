@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Review extends Model {
+    selections(){
+        return this.hasMany('App/Models/Selection')
+    }
 }
 
 module.exports = Review

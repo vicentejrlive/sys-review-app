@@ -1,28 +1,41 @@
 <template>
-  <div class="reviews">
-    <b-card v-for="review in reviews" :key="review.id" :title="review.title">
-      <b-card-text>{{review.description}}</b-card-text>
-      <template v-slot:footer>
-        <b-card-text class="small text-muted text-right">
-          <div class="card-action">
-            <div class="card-action-buttons">
-              <b-button size="sm" href="#" variant="primary">Open</b-button>
-            </div>
-            <span>Last updated {{review.updated_at}}</span>
-          </div>
-        </b-card-text>
-      </template>
-    </b-card>
+  <div class="reviews px-4">
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-card>
+            <b-card-text>
+              <b-input-group>
+                <b-form-input v-model="filter" placeholder="Enter your project name..."></b-form-input>
+                <b-input-group-append>
+                  <b-button @click="search" variant="primary">
+                    <b-icon icon="search"></b-icon>
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-card-text>
+          </b-card>
+        </b-col>
+      </b-row>
+      <b-list-group class="mt-4">
+          <ReviewsItem v-for="review in reviews" :key="review.id" :review="review" />
+      </b-list-group>
+    </b-container>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ReviewsItem from "./ReviewsItem";
 
 export default {
   name: "Reviews",
+  components: {
+    ReviewsItem
+  },
   data() {
     return {
+      filter: "",
       reviews: []
     };
   },
@@ -31,10 +44,19 @@ export default {
   },
   methods: {
     init() {
-      const url = `http://localhost:3333/reviews`;
-      axios.get(url).then(res => {
-        this.reviews = res.data;
-      });
+      const url = `http://localhost:3333/reviews/search`;
+      axios
+        .post(url, {
+          page: 1,
+          limit: 10,
+          filter: this.filter
+        })
+        .then(res => {
+          this.reviews = res.data.data;
+        });
+    },
+    search() {
+      this.init();
     }
   }
 };
@@ -42,16 +64,6 @@ export default {
 
 <style lang="scss">
 .reviews {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 10px;
-  column-gap: 10px;
-  padding: 20px;
-
-  .card-action {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  padding-top: 100px;
 }
 </style>
