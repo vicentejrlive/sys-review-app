@@ -1,5 +1,5 @@
 <template>
-  <b-list-group-item :href="`review/${this.review.id}`" class="flex-column align-items-start">
+  <b-list-group-item :to="`review/${this.review.id}`" class="flex-column align-items-start">
      <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{review.title}}</h5>
          <small>Last updated {{review.updated_at}}</small>
